@@ -1,0 +1,729 @@
+fileFormatVersion: 2
+guid: a5dd239f46f0e6d48b5c67c2f4ccdba1
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: zombie_ant_spriteSheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 615
+        width: 113
+        height: 185
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6581e4dddf3659f4c9ea20dbcf664eb7
+      internalID: -1863061533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombie_ant_spriteSheet_1
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 423
+        width: 134
+        height: 193
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 727af5501d3052d45a53c6b38e7be22e
+      internalID: -1345870029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombie_ant_spriteSheet_2
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 615
+        width: 116
+        height: 185
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 500a0cf81c690404c89c5644c00f5d6a
+      internalID: -556856048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombie_ant_spriteSheet_3
+      rect:
+        serializedVersion: 2
+        x: 237
+        y: 613
+        width: 112
+        height: 187
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2dce2a5f51a59df4593594050d714a3e
+      internalID: 1313428158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombie_ant_spriteSheet_4
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 609
+        width: 163
+        height: 183
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a97eac27ca65cb4f8e53fe801fa727d
+      internalID: -1675209420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombie_ant_spriteSheet_5
+      rect:
+        serializedVersion: 2
+        x: 520
+        y: 608
+        width: 160
+        height: 185
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c461ac212d77d3c49aa7b4a4cc5cf5e3
+      internalID: -447765793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombie_ant_spriteSheet_6
+      rect:
+        serializedVersion: 2
+        x: 680
+        y: 613
+        width: 157
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6948bc3e92569fa4886c176bdc3b4384
+      internalID: 1016432170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombie_ant_spriteSheet_7
+      rect:
+        serializedVersion: 2
+        x: 845
+        y: 612
+        width: 179
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01be0651c79deb448a98eb3257e87125
+      internalID: 60009073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombie_ant_spriteSheet_8
+      rect:
+        serializedVersion: 2
+        x: 152
+        y: 422
+        width: 161
+        height: 186
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 442142c5ce32fbf49b86e11f0a6e2f01
+      internalID: 1219051053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombie_ant_spriteSheet_9
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 416
+        width: 120
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7efc0785fa51a9947884f5f7ab961bf8
+      internalID: 2007547933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombie_ant_spriteSheet_10
+      rect:
+        serializedVersion: 2
+        x: 447
+        y: 415
+        width: 117
+        height: 185
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf75f7bff712401489177997cbe031cf
+      internalID: 1705924095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombie_ant_spriteSheet_11
+      rect:
+        serializedVersion: 2
+        x: 566
+        y: 419
+        width: 112
+        height: 185
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 616fd906955430a4a9a0e1967d4f25e4
+      internalID: 465829338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombie_ant_spriteSheet_12
+      rect:
+        serializedVersion: 2
+        x: 688
+        y: 416
+        width: 116
+        height: 184
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b40e0df67857494b91e10cf76c312e8
+      internalID: -954898661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombie_ant_spriteSheet_13
+      rect:
+        serializedVersion: 2
+        x: 810
+        y: 420
+        width: 112
+        height: 188
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cabe555004bf79943ad9f99f01ce6b10
+      internalID: -1213322957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombie_ant_spriteSheet_14
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 247
+        width: 158
+        height: 153
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18b1650ef3f802449908ff0fb201683f
+      internalID: -718700964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombie_ant_spriteSheet_15
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 243
+        width: 157
+        height: 157
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a2ef58f20f7c4340b3a3d8906523d9f
+      internalID: 1080000447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombie_ant_spriteSheet_16
+      rect:
+        serializedVersion: 2
+        x: 326
+        y: 241
+        width: 158
+        height: 157
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1161200d5b6ac674fafe40b533bcaf87
+      internalID: 757002888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombie_ant_spriteSheet_17
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 247
+        width: 126
+        height: 169
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9856208654644bc4c8aa9dc8b9a9b647
+      internalID: 1970589527
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombie_ant_spriteSheet_18
+      rect:
+        serializedVersion: 2
+        x: 638
+        y: 244
+        width: 126
+        height: 153
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00566247a08c97b4bb4c61cb1b74201d
+      internalID: -396967980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombie_ant_spriteSheet_19
+      rect:
+        serializedVersion: 2
+        x: 639
+        y: 361
+        width: 4
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbeed033177b10544a7a55bd62dd3c60
+      internalID: -1877372801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombie_ant_spriteSheet_20
+      rect:
+        serializedVersion: 2
+        x: 768
+        y: 247
+        width: 119
+        height: 157
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7762302edd145e4f823a76814fa1d29
+      internalID: -15123761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombie_ant_spriteSheet_21
+      rect:
+        serializedVersion: 2
+        x: 899
+        y: 247
+        width: 117
+        height: 157
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87da532ca7b3b304196ff9cd580586cf
+      internalID: 1193327210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombie_ant_spriteSheet_22
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 60
+        width: 187
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8d57c9a6cc333b4a9e12ccce53e8311
+      internalID: 874464573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombie_ant_spriteSheet_23
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 62
+        width: 182
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c733c8dc6a725734d8af82d49537ddd0
+      internalID: -1995309190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombie_ant_spriteSheet_24
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 61
+        width: 162
+        height: 138
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6998258dd374284689c797dd44f6db7
+      internalID: 2087303416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombie_ant_spriteSheet_25
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 58
+        width: 112
+        height: 147
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41ea77f6c10fb49488e8f4c0bf556e7e
+      internalID: 339283211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zombie_ant_spriteSheet_26
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 62
+        width: 113
+        height: 144
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3531348c3325ab74d90a192d99d00cdb
+      internalID: 681534732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      zombie_ant_spriteSheet_8: 1219051053
+      zombie_ant_spriteSheet_2: -556856048
+      zombie_ant_spriteSheet_14: -718700964
+      zombie_ant_spriteSheet_4: -1675209420
+      zombie_ant_spriteSheet_17: 1970589527
+      zombie_ant_spriteSheet_13: -1213322957
+      zombie_ant_spriteSheet_15: 1080000447
+      zombie_ant_spriteSheet_1: -1345870029
+      zombie_ant_spriteSheet_18: -396967980
+      zombie_ant_spriteSheet_21: 1193327210
+      zombie_ant_spriteSheet_0: -1863061533
+      zombie_ant_spriteSheet_7: 60009073
+      zombie_ant_spriteSheet_12: -954898661
+      zombie_ant_spriteSheet_3: 1313428158
+      zombie_ant_spriteSheet_22: 874464573
+      zombie_ant_spriteSheet_24: 2087303416
+      zombie_ant_spriteSheet_20: -15123761
+      zombie_ant_spriteSheet_25: 339283211
+      zombie_ant_spriteSheet_9: 2007547933
+      zombie_ant_spriteSheet_11: 465829338
+      zombie_ant_spriteSheet_16: 757002888
+      zombie_ant_spriteSheet_6: 1016432170
+      zombie_ant_spriteSheet_19: -1877372801
+      zombie_ant_spriteSheet_23: -1995309190
+      zombie_ant_spriteSheet_5: -447765793
+      zombie_ant_spriteSheet_10: 1705924095
+      zombie_ant_spriteSheet_26: 681534732
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

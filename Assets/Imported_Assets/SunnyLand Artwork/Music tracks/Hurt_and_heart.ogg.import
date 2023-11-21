@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cfdwfkrdgam0p"
+path="res://.godot/imported/Hurt_and_heart.ogg-5f4db4872cb3fba4e37e07498d20c71a.oggvorbisstr"
+
+[deps]
+
+source_file="res://ImportedAssets/SunnyLand Artwork/Music tracks/Hurt_and_heart.ogg"
+dest_files=["res://.godot/imported/Hurt_and_heart.ogg-5f4db4872cb3fba4e37e07498d20c71a.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

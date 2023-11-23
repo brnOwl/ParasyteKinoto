@@ -10,6 +10,7 @@ TagManager:
   - Front_Body
   - EnemyProjectile
   - Enemy
+  - PlayerMelee
   layers:
   - Default
   - TransparentFX

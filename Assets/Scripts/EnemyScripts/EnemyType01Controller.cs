@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -124,12 +125,16 @@ public class EnemyType01Controller : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.gameObject.tag == "Bullet")
+        if (other != null)
         {
-            //Debug.Log("PlayerBullet");
-            //EnemyTakeDamage(10f);
+            if (other.tag == "PlayerMelee")
+            {
+                float damage = other.GetComponent<MeleeController>().meleeDamage;
+                Debug.Log("Hit!: " + damage);
+                EnemyTakeDamage(damage);
+            }
         }
     }
 
@@ -157,6 +162,7 @@ public class EnemyType01Controller : MonoBehaviour
     // Manage Raycast
     private bool GetCollisionRaycast(Vector2 origin, Vector2 end, float distance)
     {
+        if (target == null) return false;
         float angle = Mathf.Atan2(end.y-origin.y, end.x-origin.x);
         angle *= Mathf.Rad2Deg;
 
@@ -165,16 +171,13 @@ public class EnemyType01Controller : MonoBehaviour
         Vector2 angleDirection = new Vector2(Mathf.Cos(radianAngle), Mathf.Sin(radianAngle));
 
         RaycastHit2D hit;
-        hit = Physics2D.Raycast(origin, angleDirection, distance, LayerMask.GetMask("Ground", "Player"));
+        hit = Physics2D.Raycast(origin, angleDirection, distance, LayerMask.GetMask("Ground", "Player")); ;
 
         // Debug by drawing in editor view
-        Debug.DrawRay(transform.position, angleDirection * distance, Color.magenta);
-        Debug.Log("Collision: " + hit.collider);
+        Debug.DrawRay(origin, angleDirection * distance, Color.magenta);
+        //Debug.Log("Collision: " + hit.collider.gameObject + ", Target: " + target);
 
-
-
-        if (hit.collider == target) return true;
-        else return false;
+        return (hit.collider.gameObject == target);
     }
 
     public float GetTargetDistance()

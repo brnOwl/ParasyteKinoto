@@ -1,7 +1,11 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
+using static UnityEngine.UI.Image;
 
 public class PlayerController : MonoBehaviour
 {
@@ -39,6 +43,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Vector2 climbPoint;
     [SerializeField] private bool isWallJump;
     [SerializeField] private bool canWallJump;
+    public float wallClimbSpeed = 100f;
+    public float wallClimbRadius = 1;
+
+    [Header("Player Animations")]
+    [SerializeField] private Animator playerAnimator;
 
     // Get Scripts in children
     private MeleeController meleeController;
@@ -54,7 +63,7 @@ public class PlayerController : MonoBehaviour
     // States distinguishing player actions
     // isAlive = true
     [SerializeField] private bool isAlive;
-    
+
 
 
     // Start is called before the first frame update
@@ -69,6 +78,8 @@ public class PlayerController : MonoBehaviour
         // Player gets full health at start of the scene
         SetPlayerHealth(maxPlayerHealth);
         isDashTimerDone = true;
+        // Player set animator
+        playerAnimator = GetComponentInChildren<Animator>();
     }
 
     private void OnEnable()
@@ -83,7 +94,7 @@ public class PlayerController : MonoBehaviour
         playerJump = playerControls.Player.Jump;
         playerJump.Enable();
         playerJump.performed += ActivateJump;
-        playerJump.performed += ManageWallClimb;
+        playerJump.performed += ManageWallJump;
     }
 
     private void OnDisable()
@@ -96,6 +107,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ManageWallRays(transform.position, facingRight, wallClimbRadius);
+
+        ManageAnimationState();
         if (isDashTimerDone && !isWallClimb) canDash = true;
         else canDash = false;
         moveDirection = playerMovement.ReadValue<Vector2>();
@@ -103,7 +117,10 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (isWallClimb) return;
+        if (isWallClimb)
+        {
+            return;
+        }
         // Dash Stats and Stuff
         //Debug.Log("Leak");
         if (isDashing || isWallJump) return;
@@ -136,7 +153,7 @@ public class PlayerController : MonoBehaviour
             rb.AddForce(Vector2.up * setJumpForce, ForceMode2D.Impulse);
         }
     }
-    
+
     private void ActivateSwordDash(InputAction.CallbackContext context)
     {
         //Debug.Log("ATTACK");
@@ -193,6 +210,8 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    // Wall jump and climb Handler
+
     public void SetCanWallClimb(bool status)
     {
         canWallClimb = status;
@@ -203,23 +222,21 @@ public class PlayerController : MonoBehaviour
         canWallJump = status;
     }
 
-    private void ManageWallClimb(InputAction.CallbackContext context)
+    private void ManageWallJump(InputAction.CallbackContext context)
     {
         if (isWallClimb)
         {
             isWallClimb = false;
             rb.bodyType = RigidbodyType2D.Dynamic;
             rb.AddForce(Vector2.up * setJumpForce, ForceMode2D.Impulse);
-            currentHorizontalVelocity = -setJumpForce/25 * facingRight;
-            //moveDirection.x = -facingRight;
-            //StartCoroutine(WallJump());
+            currentHorizontalVelocity = -setJumpForce / 25 * facingRight;   
         }
         else if (canWallClimb && !canJump)
         {
             isWallClimb = true;
             rb.velocity = Vector2.zero;
             rb.bodyType = RigidbodyType2D.Kinematic;
-        } 
+        }
     }
 
     // Collision Handler:
@@ -233,5 +250,57 @@ public class PlayerController : MonoBehaviour
             CheckPlayerDeath();
         }
     }
+
+    private void ManageAnimationState()
+    {
+        // moveDirection == the x input from the player
+        if (Mathf.Abs(moveDirection.x) > 0.1) playerAnimator.Play("PlayerWalk");
+        else playerAnimator.Play("PlayerIdle");
+    }
+
+    // Raycast Handler
+    private void ManageWallRays(Vector2 origin, int facingRight, float radius)
+    {
+        Vector2 angleDirection = new Vector2(facingRight, 0);
+
+
+        // Top and bottom locations for raycast
+        Vector2 topRayOrigin = new Vector2(origin.x, origin.y + (float)(radius / 1.5));
+        Vector2 botRayOrigin = new Vector2(origin.x, origin.y - radius / 2);
+
+        RaycastHit2D topHit = Physics2D.Raycast(topRayOrigin, angleDirection, (radius), LayerMask.GetMask("Ground"));
+        RaycastHit2D botHit = Physics2D.Raycast(botRayOrigin, angleDirection, (radius), LayerMask.GetMask("Ground"));
+        RaycastHit2D downHit = Physics2D.Raycast(botRayOrigin, Vector2.down, (radius), LayerMask.GetMask("Ground"));
+        RaycastHit2D upHit = Physics2D.Raycast(topRayOrigin, Vector2.up, (radius), LayerMask.GetMask("Ground"));
+
+
+        // Debug by drawing in editor view
+        Debug.DrawRay(topRayOrigin, angleDirection * radius, Color.green);
+        Debug.DrawRay(botRayOrigin, angleDirection * radius, Color.green);
+        Debug.DrawRay(botRayOrigin, Vector2.down * radius, Color.green);
+        Debug.DrawRay(topRayOrigin, Vector2.up* radius, Color.green);
+
+        Debug.Log("Collision: " + botHit.collider);
+
+        canWallClimb = (topHit.collider != null && botHit.collider != null) ? true : false;
+
+        if (isWallClimb)
+        {
+            if (
+                (topHit.collider != null && moveDirection.y > 0 && upHit.collider == null) ||
+                (botHit.collider != null && moveDirection.y < 0 && downHit.collider == null)
+                )
+            {
+                rb.velocity = new Vector2(0, moveDirection.y) * wallClimbSpeed;
+            } else
+            {
+                rb.velocity = Vector2.zero;
+            }
+            isWallClimb = (downHit.collider == null);
+        }
+    }
+
+
+
 
 }

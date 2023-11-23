@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MeleeController : MonoBehaviour
 {
-
+    public float meleeDamage = 100f;
     bool isMelee;
     // Start is called before the first frame update
     void Start()

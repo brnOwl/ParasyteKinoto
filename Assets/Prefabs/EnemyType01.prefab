@@ -360,6 +360,9 @@ MonoBehaviour:
   canFire: 1
   rotatePoint: {fileID: 4470348708179733482}
   isWithinRange: 1
+  targetDistance: 0
+  targetOffset: 0
+  isRayCollide: 1
   enemyMaxHealth: 100
   enemyCurrentHealth: 0
   fireRange: 50

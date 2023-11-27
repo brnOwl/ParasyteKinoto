@@ -31,6 +31,7 @@ public class GameManager : MonoBehaviour
     public GameObject inventory;
     public GameObject hotbar;
 
+
     // Start is called before the first frame update
     void Start()
     {

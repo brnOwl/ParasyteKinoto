@@ -19,8 +19,4 @@ public class MeleeController : MonoBehaviour
         gameObject.SetActive(isMelee);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        
-    }
 }

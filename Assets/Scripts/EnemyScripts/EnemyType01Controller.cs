@@ -162,7 +162,6 @@ public class EnemyType01Controller : MonoBehaviour
     // Manage Raycast
     private bool GetCollisionRaycast(Vector2 origin, Vector2 end, float distance)
     {
-        if (target == null) return false;
         float angle = Mathf.Atan2(end.y-origin.y, end.x-origin.x);
         angle *= Mathf.Rad2Deg;
 
@@ -175,7 +174,8 @@ public class EnemyType01Controller : MonoBehaviour
 
         // Debug by drawing in editor view
         Debug.DrawRay(origin, angleDirection * distance, Color.magenta);
-        //Debug.Log("Collision: " + hit.collider.gameObject + ", Target: " + target);
+        if (hit.collider == null) return false;
+        Debug.Log("Collision: " + hit.collider.gameObject + ", Target: " + target);
 
         return (hit.collider.gameObject == target);
     }

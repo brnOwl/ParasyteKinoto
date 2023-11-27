@@ -64,6 +64,10 @@ public class PlayerController : MonoBehaviour
     // isAlive = true
     [SerializeField] private bool isAlive;
 
+    // Player Audio
+    [Header("Player Sounds")]
+    public AudioSource audioSource;
+    public AudioClip[] jumpAudioClips;
 
 
     // Start is called before the first frame update
@@ -80,6 +84,7 @@ public class PlayerController : MonoBehaviour
         isDashTimerDone = true;
         // Player set animator
         playerAnimator = GetComponentInChildren<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     private void OnEnable()
@@ -151,6 +156,7 @@ public class PlayerController : MonoBehaviour
         if (canJump)
         {
             rb.AddForce(Vector2.up * setJumpForce, ForceMode2D.Impulse);
+            RandomJumpSound();
         }
     }
 
@@ -280,7 +286,7 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(botRayOrigin, Vector2.down * radius, Color.green);
         Debug.DrawRay(topRayOrigin, Vector2.up* radius, Color.green);
 
-        Debug.Log("Collision: " + botHit.collider);
+        Debug.Log("Player Collision: " + botHit.collider);
 
         canWallClimb = (topHit.collider != null && botHit.collider != null) ? true : false;
 
@@ -298,9 +304,16 @@ public class PlayerController : MonoBehaviour
             }
             isWallClimb = (downHit.collider == null);
         }
+
+        
     }
 
-
+    // Handle Sounds
+    private void RandomJumpSound()
+    {
+        audioSource.clip = jumpAudioClips[Random.Range(0, jumpAudioClips.Length)];
+        audioSource.Play();
+    }
 
 
 }

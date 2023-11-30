@@ -9,6 +9,7 @@ public class EnemyProjectile : MonoBehaviour
     public float longevityTime = 20f;
     Vector3 dir = Vector3.zero;
     Rigidbody2D rb;
+    private float projectileDamage = 100f;
 
     private void Start()
     {
@@ -50,5 +51,10 @@ public class EnemyProjectile : MonoBehaviour
         var mid = Vector3.Lerp(start, end, t);
 
         return new Vector3(mid.x, f(t) + Mathf.Lerp(start.y, end.y, t), mid.z);
+    }
+
+    public float GetProjectileDamage()
+    {
+        return projectileDamage;
     }
 }

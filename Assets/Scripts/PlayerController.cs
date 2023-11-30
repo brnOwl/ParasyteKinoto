@@ -69,6 +69,9 @@ public class PlayerController : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip[] jumpAudioClips;
 
+    [Header("Player Death/Spore Spawning")]
+    public GameObject sporeObject;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -140,6 +143,8 @@ public class PlayerController : MonoBehaviour
             currentHorizontalVelocity = rb.velocity.x;
             return;
         }
+        // CanJump ==== the player is grounded
+        // if (canJump) rb.velocity = new Vector2(rb.velocity.x, 0);
         // if wall jump, make current horizontal velocity instant for first frame
         FollowMouse();
         currentHorizontalVelocity = Mathf.Lerp(currentHorizontalVelocity, moveDirection.x * moveSpeed, decay);
@@ -212,8 +217,16 @@ public class PlayerController : MonoBehaviour
         if (currentPlayerHealth <= 0)
         {
             isAlive = false;
+            CreateSpore();
+
             Destroy(gameObject);
         }
+    }
+
+    private void CreateSpore()
+    {
+        GameObject newSpore = Instantiate(sporeObject);
+        newSpore.transform.position = transform.position;
     }
 
     // Wall jump and climb Handler
@@ -252,7 +265,7 @@ public class PlayerController : MonoBehaviour
 
         if (collider.gameObject.tag == "EnemyProjectile")
         {
-            DecrementPlayerHealth(10); // FIX ME -- make this a variable/constant at the top
+            DecrementPlayerHealth((int)collider.GetComponent<EnemyProjectile>().GetProjectileDamage()); // FIX ME -- make this a variable/constant at the top
             CheckPlayerDeath();
         }
     }
@@ -292,17 +305,26 @@ public class PlayerController : MonoBehaviour
 
         if (isWallClimb)
         {
-            if (
+            if
+                (
                 (topHit.collider != null && moveDirection.y > 0 && upHit.collider == null) ||
-                (botHit.collider != null && moveDirection.y < 0 && downHit.collider == null)
+                (botHit.collider != null && moveDirection.y < 0)
                 )
             {
                 rb.velocity = new Vector2(0, moveDirection.y) * wallClimbSpeed;
-            } else
+            }
+            else
             {
+                // If the player is grounded, cancel the wall climb
+
                 rb.velocity = Vector2.zero;
             }
-            isWallClimb = (downHit.collider == null);
+            if (downHit.collider != null)
+            {
+                rb.bodyType = RigidbodyType2D.Dynamic;
+                isWallClimb = false;
+            }
+            
         }
 
         

@@ -73,6 +73,7 @@ public class EnemyType01Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        FindPlayer();
         if (target != null)
         {
             targetDistance = GetTargetDistance();
@@ -183,5 +184,10 @@ public class EnemyType01Controller : MonoBehaviour
     public float GetTargetDistance()
     {
         return Vector2.Distance(transform.position, target.transform.position);
+    }
+
+    private void FindPlayer()
+    {
+        target = GameObject.FindWithTag("Player");
     }
 }

@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95e1f8985d51fcc469f58981ec970dc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 540342555001191343, guid: c148975579aa0a04a88eeb2c53018f84, type: 3}
+  playerSpawnPoint: {fileID: 0}
   explosionObject: {fileID: 0}
   gameOverTime: 3
   gameOverScreen: {fileID: 0}

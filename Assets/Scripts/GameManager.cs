@@ -7,7 +7,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    private GameObject player;
+    public GameObject player;
+    public Transform playerSpawnPoint;
     //private 
 
     //public HealthBar playerHealthBar;
@@ -36,6 +37,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Instance = this;
+        SpawnPlayer(playerSpawnPoint);
     }
 
     // Update is called once per frame

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RotatePoint : MonoBehaviour
 {
-    private GameObject target;
+    public GameObject target;
     public Vector3 lookDirection;
     public float lookAngle;
     public EnemyType01Controller controller;
@@ -24,18 +24,18 @@ public class RotatePoint : MonoBehaviour
     void Start()
     {
         //Debug.Log("Start Rotate: ");
-        if (transform.root.CompareTag("Enemy"))
-        {
-            //Debug.Log("Can Rotate!");
-            controller = GetComponentInParent<EnemyType01Controller>();
-            target = controller.target;
-        }
+        
         
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (transform.root.CompareTag("Enemy"))
+        {
+            controller = GetComponentInParent<EnemyType01Controller>();
+            target = controller.target;
+        }
         if (target != null) LookAtTarget();
         else LookAtDefault();
     }

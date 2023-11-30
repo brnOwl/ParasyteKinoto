@@ -32,12 +32,15 @@ public class LaunchArcRenderer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (controller.target != null) ManageArc();
+
+    }
+
+    private void ManageArc()
+    {
         velocity = controller.projectileVelocity;
-
         angle = controller.rotatePoint.lookAngle;
-        //angle = CalculateAngleForDistance(targetPosition, transform.position, velocity);
         RenderArc();
-
     }
 
     // Populating the LineRender
@@ -56,7 +59,8 @@ public class LaunchArcRenderer : MonoBehaviour
         //lookAngle = angle * Mathf.Rad2Deg;
 
 
-        maxDistance = Mathf.Abs((velocity * velocity * Mathf.Sin(2 * radianAngle))) / g;
+        // maxDistance = Mathf.Abs((velocity * velocity * Mathf.Sin(2 * radianAngle))) / g;
+        maxDistance = controller.target.transform.position.x - controller.transform.position.x;
         //maxDistance = Vector2.Distance(controller.target.transform.position, controller.target.transform.position);
         float totalTime = maxDistance / (velocity * Mathf.Cos(radianAngle));
 

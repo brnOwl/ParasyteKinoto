@@ -29,8 +29,9 @@ public class EnemyProjectile : MonoBehaviour
     {
         switch (collision.gameObject.tag)
         {
-            case "PlayerBody": 
-            case"Ground":
+            case "Player": 
+            case "Ground":
+            case "":
                 Destroy(gameObject);
                 break;
         }

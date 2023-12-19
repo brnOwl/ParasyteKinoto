@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class GameManager : MonoBehaviour
     [Header("Game Over")]
     public float gameOverTime = 3.0f;
     public GameObject gameOverScreen;
+    //public Image gameOverScreen;
 
     [Header("Enemy Count")]
     public int getEnemyCount;
@@ -38,6 +40,12 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
         SpawnPlayer(playerSpawnPoint);
+        SpawnEnemy(enemySpawnPoint);
+    }
+
+    private void Awake()
+    {
+        gameOverScreen.SetActive(false);
     }
 
     // Update is called once per frame
@@ -48,8 +56,14 @@ public class GameManager : MonoBehaviour
 
     public void SpawnPlayer(Transform spawnPoint)
     {
-        Instantiate(player);
-        player.transform.position = spawnPoint.position;
+        GameObject newPlayer = Instantiate(player);
+        newPlayer.transform.position = spawnPoint.position;
+    }
+
+    public void SpawnEnemy(Transform spawnPoint)
+    {
+        GameObject newEnemy = Instantiate(enemy);
+        newEnemy.transform.position = spawnPoint.position;
     }
 
     // Loads a scene based on the scene Index -- can be called by other scripts
@@ -60,7 +74,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayerDeathControl(Transform newTransform)
     {
-        Explode(newTransform);
+        //Explode(newTransform);
         StartCoroutine(GameOver());
     }
 

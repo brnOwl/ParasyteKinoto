@@ -11,7 +11,7 @@ public class LaunchArcRenderer : MonoBehaviour
     public float angle;
     public int resolution = 10;
     public float maxDistance;
-    public EnemyType01Controller controller;
+    public EnemyArcherType controller;
     public float calculatedAngle;
 
     float g;
@@ -20,7 +20,7 @@ public class LaunchArcRenderer : MonoBehaviour
     {
         lr = GetComponent<LineRenderer>();
         g = Mathf.Abs(Physics2D.gravity.y);
-        controller = GetComponent<EnemyType01Controller>();
+        controller = GetComponent<EnemyArcherType>();
         
     }
     // Start is called before the first frame update

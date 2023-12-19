@@ -7,7 +7,7 @@ public class RotatePoint : MonoBehaviour
     public GameObject target;
     public Vector3 lookDirection;
     public float lookAngle;
-    public EnemyType01Controller controller;
+    public EnemyArcherType controller;
     public float enemyRotateGuardLERP = 0.2f;
     public float enemyRotateRelaxedLERP = 0.01f;
     float g;
@@ -33,7 +33,7 @@ public class RotatePoint : MonoBehaviour
     {
         if (transform.root.CompareTag("Enemy"))
         {
-            controller = GetComponentInParent<EnemyType01Controller>();
+            controller = GetComponentInParent<EnemyArcherType>();
             target = controller.target;
         }
         if (target != null) LookAtTarget();
@@ -44,7 +44,7 @@ public class RotatePoint : MonoBehaviour
     {
         // Calculate Angles and set rotation of projectile launcher
         lookAngle = CalculateAngleForDistance(target.transform.position, transform.position,
-        GetComponentInParent<EnemyType01Controller>().projectileVelocity) * Mathf.Rad2Deg;
+        GetComponentInParent<EnemyArcherType>().projectileVelocity) * Mathf.Rad2Deg;
 
         // If target is left of the enemy
         if ((transform.position.x - target.transform.position.x) < 0)

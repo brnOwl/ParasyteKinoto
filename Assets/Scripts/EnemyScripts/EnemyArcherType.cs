@@ -5,10 +5,9 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyType01Controller : MonoBehaviour
+public class EnemyArcherType : EnemyType
 {
     [Header("Enemy Projectiles")]
-    public GameObject target;
     public GameObject projectile;
     public float projectileVelocity = 20f;
     public Transform firePoint;
@@ -20,15 +19,6 @@ public class EnemyType01Controller : MonoBehaviour
     public bool canFire = true;
     public RotatePoint rotatePoint;
     public bool isWithinRange = true;
-    public float targetDistance;
-    public float targetOffset; // = targetDistance, but signed: if left: is negative
-
-    [Header("Enemy Collision Raycast")]
-    public bool isRayCollide = true; // Says whether or not the enemy has a clear LOS to the target (player)
-
-    [Header("Enemy Stats")]
-    public float enemyMaxHealth = 50f;
-    public float enemyCurrentHealth;
 
     [Header("Game Manager")]
     //public GameObject gameManagerObject;
@@ -39,16 +29,15 @@ public class EnemyType01Controller : MonoBehaviour
     //NavMeshAgent agent;
     public float fireRange = 50f;
 
-    [Header("Animations")]
-    public bool isEnemyMoving;
-    private Transform vfxTransform;
-    private Animator animator;
+
 
     // Start is called before the first frame update
     void Start()
     {
         //gameManager = GameManager.Instance;
         //gameManager = gameManagerObject.GetComponent<GameManager>();
+
+        sprite = GetComponentInChildren<SpriteRenderer>();
 
         fireCoolDown = true;
         enemyCurrentHealth = enemyMaxHealth;
@@ -73,15 +62,10 @@ public class EnemyType01Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FindPlayer();
-        if (target != null)
-        {
-            targetDistance = GetTargetDistance();
-            isRayCollide = GetCollisionRaycast(transform.position, target.transform.position, targetDistance);
-        }
+        FindTarget();
         
         EnemyRangeRotation();
-        // Calculate disance between target and enemy
+        // Calculate distance between target and enemy
         if (fireCoolDown && target != null && canFire && isWithinRange && isRayCollide) StartCoroutine(FirePattern());
 
         // Navigation AI
@@ -100,7 +84,6 @@ public class EnemyType01Controller : MonoBehaviour
         fireCoolDown = false;
         yield return new WaitForSeconds(fireInterval);
         fireCoolDown = true;
-
     }
 
     private void FireProjectile()
@@ -126,68 +109,10 @@ public class EnemyType01Controller : MonoBehaviour
 
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other != null)
-        {
-            if (other.tag == "PlayerMelee")
-            {
-                float damage = other.GetComponent<MeleeController>().meleeDamage;
-                Debug.Log("Hit!: " + damage);
-                EnemyTakeDamage(damage);
-            }
-        }
-    }
-
-    public void EnemyTakeDamage(float damage)
-    {
-        enemyCurrentHealth -= damage;
-        if (enemyCurrentHealth <= 0) TriggerEnemyDeath();
-    }
-
-    public void TriggerEnemyDeath()
-    {
-        //Debug.Log("Boom");
-        //gameManager.Explode(transform);
-        Destroy(gameObject);
-
-
-    }
-
     private void EnemyRangeRotation()
     {
         if (target != null) lookAngle = rotatePoint.lookAngle;
         else lookAngle = 0;
     }
 
-    // Manage Raycast
-    private bool GetCollisionRaycast(Vector2 origin, Vector2 end, float distance)
-    {
-        float angle = Mathf.Atan2(end.y-origin.y, end.x-origin.x);
-        angle *= Mathf.Rad2Deg;
-
-        // Cast Raycast
-        float radianAngle = angle * Mathf.Deg2Rad;
-        Vector2 angleDirection = new Vector2(Mathf.Cos(radianAngle), Mathf.Sin(radianAngle));
-
-        RaycastHit2D hit;
-        hit = Physics2D.Raycast(origin, angleDirection, distance, LayerMask.GetMask("Ground", "Player")); ;
-
-        // Debug by drawing in editor view
-        Debug.DrawRay(origin, angleDirection * distance, Color.magenta);
-        if (hit.collider == null) return false;
-        Debug.Log("Collision: " + hit.collider.gameObject + ", Target: " + target);
-
-        return (hit.collider.gameObject == target);
-    }
-
-    public float GetTargetDistance()
-    {
-        return Vector2.Distance(transform.position, target.transform.position);
-    }
-
-    private void FindPlayer()
-    {
-        target = GameObject.FindWithTag("Player");
-    }
 }

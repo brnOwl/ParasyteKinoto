@@ -69,11 +69,25 @@ public class SporeController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        Debug.Log("Spore collided with: " + collision.transform.tag);
+
         if (collision.transform.tag == "Enemy")
         {
             Destroy(collision.gameObject);
             GameObject newPlayer = Instantiate(player);
-            newPlayer.transform.position = transform.position;
+            newPlayer.transform.position = collision.transform.position;
+            Destroy(gameObject);
+        }
+       
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Spore triggered with: " + collision.transform.tag);
+
+        if (collision.transform.tag == "EnemyProjectile")
+        {
+            GameManager.Instance.PlayerDeathControl(transform);
             Destroy(gameObject);
         }
     }

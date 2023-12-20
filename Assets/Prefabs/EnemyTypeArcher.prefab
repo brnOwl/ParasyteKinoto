@@ -313,7 +313,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -360,7 +360,7 @@ GameObject:
   - component: {fileID: 284001188220041542}
   - component: {fileID: 3618435199905053045}
   m_Layer: 0
-  m_Name: EnemyType01
+  m_Name: EnemyTypeArcher
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -564,7 +564,7 @@ MonoBehaviour:
   lookAngle: 0
   bulletDespawnTime: 2
   fireCoolDown: 0
-  fireInterval: 1
+  fireInterval: 3
   canFire: 1
   rotatePoint: {fileID: 4470348708179733482}
   isWithinRange: 1

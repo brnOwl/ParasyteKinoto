@@ -7,7 +7,6 @@ public class EnemyProjectile : MonoBehaviour
 {
     private GameObject gameManager;
     public float longevityTime = 20f;
-    Vector3 dir = Vector3.zero;
     Rigidbody2D rb;
     private float projectileDamage = 100f;
 

@@ -1,9 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using EnemyTyping;
+
+namespace EnemyTyping
+{
+    public enum EnemyTypeEnum
+    {
+        Archer,
+        Swordman,
+        Chemist
+    }
+}
 
 public class EnemyType : MonoBehaviour
 {
+    public EnemyTypeEnum enemyTyping;
+
     [Header("Target Information")]
     public GameObject target;
     public float targetDistance;

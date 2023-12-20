@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using static UnityEngine.UI.Image;
 
-public class PlayerController : PlayerType
+public class PlayerSwordman : PlayerType
 {
     // Sword Dash
     [Header("Player Dash")]
@@ -15,7 +15,6 @@ public class PlayerController : PlayerType
     public float dashingPower;
     public float dashingTime;
     public float dashingCooldown;
-    public float decay = 0.1f;
     public bool isDashing = false;
     public bool canDash;
 
@@ -99,18 +98,25 @@ public class PlayerController : PlayerType
     }
 
     // Set the health of the player -- so other functions can manipulate player health
-    
+    protected new void MovePlayer()
+    {
+        if (isDashing)
+        {
+            currentHorizontalVelocity = rb.velocity.x;
+            return;
+        }
+        // CanJump ==== the player is grounded
+        // if (canJump) rb.velocity = new Vector2(rb.velocity.x, 0);
+        // if wall jump, make current horizontal velocity instant for first frame
+        FollowMouse();
+        currentHorizontalVelocity = Mathf.Lerp(currentHorizontalVelocity, moveDirection.x * moveSpeed, decay);
+        if (currentHorizontalVelocity < 0.001 && currentHorizontalVelocity > -0.001) currentHorizontalVelocity = 0;
+        rb.velocity = new Vector2(currentHorizontalVelocity, rb.velocity.y);
+        SetDashRayCast();
+        // Change direction based on input
+        if (currentHorizontalVelocity > 0) facingRight = 1;
+        else if (currentHorizontalVelocity < 0) facingRight = -1;
+    }
 
-    
- 
-
-    
-
-    // Raycast Handler
-    
-
-    
-    
-
-
+    // Raycast 
 }

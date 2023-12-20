@@ -4,9 +4,13 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using EnemyTyping;
 
 public class EnemyArcherType : EnemyType
 {
+    // Set Enum to Archer
+    //EnemyTyping = EnemyTyping.Archer;
+
     [Header("Enemy Projectiles")]
     public GameObject projectile;
     public float projectileVelocity = 20f;

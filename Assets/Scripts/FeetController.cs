@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class FeetController : MonoBehaviour
 {
-    private PlayerController playerController;
+    private PlayerType playerController;
 
     // Start is called before the first frame update
     void Start()
     {
-        playerController = GetComponentInParent<PlayerController>();
+        playerController = GetComponentInParent<PlayerType>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

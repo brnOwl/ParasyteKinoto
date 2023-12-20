@@ -296,7 +296,7 @@ GameObject:
   - component: {fileID: 8211391719196915150}
   - component: {fileID: 8621852285417443525}
   m_Layer: 8
-  m_Name: MainPlayer
+  m_Name: PlayerTypeSwordman
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -356,19 +356,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 10
   setJumpForce: 500
-  dashingPower: 50
-  dashingTime: 0.1
-  dashingCooldown: 2
   decay: 0.2
   moveDirection: {x: 0, y: 0}
   canJump: 0
   playerDirection: {x: 0, y: 0}
   playerAngle: 0
-  isDashing: 0
-  canDash: 1
   currentHorizontalVelocity: 0
   currentVerticalVelocity: 0
-  isDashTimerDone: 0
   maxPlayerHealth: 100
   currentPlayerHealth: 0
   isWallHugging: 0
@@ -387,7 +381,14 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 56b3dfa73be31ff48bf3d2021f6ae554, type: 3}
   - {fileID: 8300000, guid: 72eabab8db492bc4b96b44094ec70d13, type: 3}
   - {fileID: 8300000, guid: bfa64687a35ff944a9cf55e5c6d45b0b, type: 3}
-  sporeObject: {fileID: 6174624115276011585, guid: 06e31e726a202bf479fa76bdd75ef680, type: 3}
+  playerSpore: {fileID: 6174624115276011585, guid: 06e31e726a202bf479fa76bdd75ef680, type: 3}
+  playerCorpse: {fileID: 1259229403584877112, guid: 359f3a825ea14f848b24260b406452c9, type: 3}
+  isDashTimerDone: 0
+  dashingPower: 50
+  dashingTime: 0.1
+  dashingCooldown: 2
+  isDashing: 0
+  canDash: 1
 --- !u!96 &540342555001191338
 TrailRenderer:
   serializedVersion: 2
@@ -832,7 +833,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -663658135
-  m_SortingLayer: 1
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_Sprite: {fileID: -1863061533, guid: a5dd239f46f0e6d48b5c67c2f4ccdba1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -9,9 +9,17 @@ using static UnityEngine.UI.Image;
 
 public class PlayerType : MonoBehaviour
 {
+    enum PlayerTypeEnum
+    {
+        Archer,
+        Swordman,
+        Chemist
+    }
+
     [Header("Player Settings")]
     public float moveSpeed = 5f;
     public float setJumpForce = 50f;
+    public float decay = 0.1f;
 
     [Header("Player Stats")]
     public Vector2 moveDirection = Vector2.right;
@@ -57,7 +65,9 @@ public class PlayerType : MonoBehaviour
     public AudioClip[] jumpAudioClips;
 
     [Header("Player Death/Spore Spawning")]
-    public GameObject sporeObject;
+    public GameObject playerSpore;
+    public GameObject playerCorpse;
+    
 
     // Start is called before the first frame update
     protected void Awake()
@@ -120,11 +130,6 @@ public class PlayerType : MonoBehaviour
 
     protected void MovePlayer()
     {
-        if (isDashing)
-        {
-            currentHorizontalVelocity = rb.velocity.x;
-            return;
-        }
         // CanJump ==== the player is grounded
         // if (canJump) rb.velocity = new Vector2(rb.velocity.x, 0);
         // if wall jump, make current horizontal velocity instant for first frame
@@ -132,7 +137,6 @@ public class PlayerType : MonoBehaviour
         currentHorizontalVelocity = Mathf.Lerp(currentHorizontalVelocity, moveDirection.x * moveSpeed, decay);
         if (currentHorizontalVelocity < 0.001 && currentHorizontalVelocity > -0.001) currentHorizontalVelocity = 0;
         rb.velocity = new Vector2(currentHorizontalVelocity, rb.velocity.y);
-        SetDashRayCast();
         // Change direction based on input
         if (currentHorizontalVelocity > 0) facingRight = 1;
         else if (currentHorizontalVelocity < 0) facingRight = -1;
@@ -159,10 +163,11 @@ public class PlayerType : MonoBehaviour
 
     protected void CheckPlayerDeath()
     {
-        if (currentPlayerHealth <= 0)
+        if (currentPlayerHealth <= 0 && isAlive)
         {
             isAlive = false;
             CreateSpore();
+            CreateCorpse();
 
             Destroy(gameObject);
         }
@@ -179,8 +184,14 @@ public class PlayerType : MonoBehaviour
 
     protected void CreateSpore()
     {
-        GameObject newSpore = Instantiate(sporeObject);
+        GameObject newSpore = Instantiate(playerSpore);
         newSpore.transform.position = transform.position;
+    }
+
+    protected void CreateCorpse()
+    {
+        GameObject newCorpse = Instantiate(playerCorpse);
+        newCorpse.transform.position = transform.position;
     }
 
     protected void ManageAnimationState()

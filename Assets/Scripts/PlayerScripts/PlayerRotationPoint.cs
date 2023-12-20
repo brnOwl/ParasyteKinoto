@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerRotationPoint : MonoBehaviour
 {
-    private PlayerController playerController;
+    private PlayerSwordman playerController;
 
     public float rotationAngle;
     public float currentRotation;
@@ -15,7 +15,7 @@ public class PlayerRotationPoint : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerController = GetComponentInParent<PlayerController>();
+        playerController = GetComponentInParent<PlayerSwordman>();
     }
 
     // Update is called once per frame

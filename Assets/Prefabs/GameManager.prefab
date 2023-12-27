@@ -1,5 +1,67 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2784923433174728411
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1362866349310534228}
+  m_Layer: 0
+  m_Name: EnemyList
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1362866349310534228
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2784923433174728411}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7635850754353303009}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3873882686504321707
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8122735038503206736}
+  m_Layer: 0
+  m_Name: PlayerList
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8122735038503206736
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3873882686504321707}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7635850754353303009}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7635850754353303015
 GameObject:
   m_ObjectHideFlags: 0
@@ -28,7 +90,9 @@ Transform:
   m_LocalPosition: {x: 4.25327, y: 1.0676526, z: -0.11791562}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1362866349310534228}
+  - {fileID: 8122735038503206736}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -47,13 +111,18 @@ MonoBehaviour:
   player: {fileID: 540342555001191343, guid: c148975579aa0a04a88eeb2c53018f84, type: 3}
   playerSpawnPoint: {fileID: 0}
   explosionObject: {fileID: 0}
-  uiManager: {fileID: 8316212250927678654, guid: eb5de032e8d966945b83f0d4e4a89d0e, type: 3}
-  frontCanvas: {fileID: 0}
   gameOverTime: 3
   gameOverScreen: {fileID: 0}
   getEnemyCount: 0
   setEnemyCount: 0
-  enemy: {fileID: 0}
-  enemySpawnPoint: {fileID: 0}
+  enemyTypeList:
+  - {fileID: 7524124417689870973, guid: 7b4feb591735b65459e8231ab53ef3be, type: 3}
+  - {fileID: 2275382540881820079, guid: d3472f17a3df27746b8ddf5cb1829adf, type: 3}
+  - {fileID: 6305763678992774411, guid: fbcd09e0ad6f13f4bafb57cb11c0ad1b, type: 3}
+  playerTypeList:
+  - {fileID: 540342555001191343, guid: 48712db81f7117b45af91fa19b0f8490, type: 3}
+  - {fileID: 540342555001191343, guid: c148975579aa0a04a88eeb2c53018f84, type: 3}
+  - {fileID: 540342555001191343, guid: df2aa281e320c69418178de422ec1d4f, type: 3}
+  spawnPointList: []
   inventory: {fileID: 0}
   hotbar: {fileID: 0}

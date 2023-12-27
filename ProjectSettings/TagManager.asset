@@ -12,6 +12,8 @@ TagManager:
   - Enemy
   - PlayerMelee
   - Corpse
+  - PlayerProjectile
+  - Invincible
   layers:
   - Default
   - TransparentFX
@@ -24,8 +26,8 @@ TagManager:
   - Player
   - Ground
   - Background
-  - 
-  - 
+  - EnemyItem
+  - PlayerItem
   - 
   - 
   - 
@@ -54,4 +56,10 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 3631309161
+    locked: 0
+  - name: Items
+    uniqueID: 520547559
+    locked: 0
+  - name: UI
+    uniqueID: 3559350297
     locked: 0

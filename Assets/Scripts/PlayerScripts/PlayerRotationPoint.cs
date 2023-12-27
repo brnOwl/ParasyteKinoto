@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PlayerRotationPoint : MonoBehaviour
 {
-    private PlayerSwordman playerController;
+    private PlayerType playerController;
 
-    public float rotationAngle;
+    
     public float currentRotation;
     public float swingDistance = 90f;
 
@@ -15,15 +15,15 @@ public class PlayerRotationPoint : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerController = GetComponentInParent<PlayerSwordman>();
+        playerController = GetComponentInParent<PlayerType>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        rotationAngle = playerController.playerAngle * Mathf.Rad2Deg;
+        playerController.rotationAngle = playerController.playerAngle * Mathf.Rad2Deg;
         
-        transform.rotation = Quaternion.Euler(0, 0, rotationAngle);
+        transform.rotation = Quaternion.Euler(0, 0, playerController.rotationAngle);
     }
 
     void RotateSwingHitbox()

@@ -1,26 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using EnemyTyping;
-
-namespace EnemyTyping
-{
-    public enum EnemyTypeEnum
-    {
-        Archer,
-        Swordman,
-        Chemist
-    }
-}
+using ClassTyping;
 
 public class EnemyType : MonoBehaviour
 {
-    public EnemyTypeEnum enemyTyping;
+    public ClassType enemyTypeEnum;
 
     [Header("Target Information")]
     public GameObject target;
     public float targetDistance;
     public float targetOffset; // = targetDistance, but signed: if left: is negative
+    public float targetDistanceLimit = 40f;
     [Header("Enemy Collision Raycast")]
     public bool isRayCollide = true; // Says whether or not the enemy has a clear LOS to the target (player)
 
@@ -35,18 +26,22 @@ public class EnemyType : MonoBehaviour
 
     protected int facingRight = 1;
 
-    protected SpriteRenderer sprite;
+    protected SpriteRenderer enemySprite;
 
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
-        sprite = GetComponentInChildren<SpriteRenderer>();
+        enemySprite = transform.Find("Sprite").gameObject.GetComponent<SpriteRenderer>();
+        enemyCurrentHealth = enemyMaxHealth;
+        animator = GetComponentInChildren<Animator>();
+        vfxTransform = gameObject.transform.GetChild(1).transform;
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
         FindTarget();
+        enemySprite.gameObject.transform.localScale = new Vector3(facingRight, 1, 1);
         //FaceTarget(targetOffset);
     }
 
@@ -59,6 +54,11 @@ public class EnemyType : MonoBehaviour
                 float damage = other.GetComponent<MeleeController>().meleeDamage;
                 Debug.Log("Hit!: " + damage);
                 EnemyTakeDamage(damage);
+            } else if (other.tag == "PlayerProjectile")
+            {
+                float damage = other.GetComponent<Projectile>().GetProjectileDamage();
+                Debug.Log("Hit!: " + damage);
+                EnemyTakeDamage(damage);
             }
         }
     }
@@ -66,20 +66,31 @@ public class EnemyType : MonoBehaviour
     protected void FindTarget()
     {
         target = GameObject.FindWithTag("Player");
+       
         if (target != null)
         {
             targetDistance = GetTargetDistance();
             targetOffset = target.transform.position.x - transform.position.x;
-            isRayCollide = GetCollisionRaycast(transform.position, target.transform.position, targetDistance);
+            if (targetDistance < targetDistanceLimit)
+            {
+                isRayCollide = GetCollisionRaycast(transform.position, target.transform.position, targetDistance);
 
-            if (targetOffset < 0) EnemyFaceRight(false);
-            else if (targetOffset > 0) EnemyFaceRight(true);
+
+                if (targetOffset < 0) facingRight = -1;
+                else if (targetOffset > 0) facingRight = 1;
+                return;
+            }
         }
-        else
-        {
-            EnemyFaceRight(true);
-        }
+        facingRight = 1;
     }
+
+    protected void FaceTarget()
+    {
+        
+        
+    }
+
+
 
     public void EnemyTakeDamage(float damage)
     {
@@ -114,13 +125,9 @@ public class EnemyType : MonoBehaviour
         // Debug by drawing in editor view
         Debug.DrawRay(origin, angleDirection * distance, Color.magenta);
         if (hit.collider == null) return false;
-        Debug.Log("Collision: " + hit.collider.gameObject + ", Target: " + target);
+        //Debug.Log("Collision: " + hit.collider.gameObject + ", Target: " + target);
 
         return (hit.collider.gameObject == target);
     }
 
-    protected void EnemyFaceRight(bool setFace)
-    {
-        sprite.flipX = setFace;
-    }
 }

@@ -315,7 +315,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: -1
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -359,7 +359,7 @@ GameObject:
   - component: {fileID: 3987211587151574135}
   - component: {fileID: 284001188220041542}
   - component: {fileID: 3618435199905053045}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: EnemyTypeArcher
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -550,16 +550,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b52b7d3002482441b3e341b5425262a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyTypeEnum: 0
   target: {fileID: 0}
   targetDistance: 0
   targetOffset: 0
+  targetDistanceLimit: 40
   isRayCollide: 1
   isEnemyMoving: 0
   enemyMaxHealth: 50
   enemyCurrentHealth: 0
-  projectile: {fileID: 2568300297300796742, guid: a594e3667bc51c443bb95fbb6078769b, type: 3}
+  projectile: {fileID: 2568300297300796742, guid: bf2069568cd3c2d418f286615fc4308b, type: 3}
   projectileVelocity: 20
   firePoint: {fileID: 8219648365536287162}
+  enemyProjectileDamage: 20
   lookDirection: {x: 0, y: 0}
   lookAngle: 0
   bulletDespawnTime: 2

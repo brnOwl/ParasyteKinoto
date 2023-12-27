@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using ClassTyping;
 
 public class SporeController : MonoBehaviour
 {
+    GameManager gameManager = GameManager.Instance;
+
     public PlayerInputInteractions playerControls;
     internal Rigidbody2D rb;
 
@@ -17,23 +20,25 @@ public class SporeController : MonoBehaviour
     public Vector2 moveDirection = Vector2.right;
     public float moveSpeed = 10f;
     public float decay = 5f;
-    float currentHorizontalVelocity = 0f;
-    float currentVerticalVelocity = 0f;
+    float currentHorizontalVelocity;
+    float currentVerticalVelocity;
 
     // Player Regeneration
-    public GameObject player;
-
+    public GameObject playerList;
+    bool isAlive;
 
     private void Awake()
     {
         playerControls = new PlayerInputInteractions();
         rb = GetComponent<Rigidbody2D>();
+        isAlive = true;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        currentHorizontalVelocity = rb.velocity.x;
+        currentVerticalVelocity = rb.velocity.y;
     }
 
     // Update is called once per frame
@@ -73,10 +78,22 @@ public class SporeController : MonoBehaviour
 
         if (collision.transform.tag == "Enemy")
         {
-            Destroy(collision.gameObject);
-            GameObject newPlayer = Instantiate(player);
-            newPlayer.transform.position = collision.transform.position;
-            Destroy(gameObject);
+            ClassType enemyType = collision.gameObject.GetComponent<EnemyType>().enemyTypeEnum;
+            Debug.Log("Enemy Type: " + enemyType + " : " + (int)enemyType);
+
+            if (isAlive)
+            {
+                Destroy(collision.gameObject);
+                //
+                GameObject newPlayer = Instantiate(gameManager.playerTypeList[(int)enemyType]);
+                //GameObject newPlayer = Instantiate(playerList.transform.GetChild(1).gameObject);
+                newPlayer.transform.position = collision.transform.position;
+                isAlive = false;
+
+                Destroy(gameObject);
+                
+            }
+            
         }
        
     }
@@ -90,5 +107,10 @@ public class SporeController : MonoBehaviour
             GameManager.Instance.PlayerDeathControl(transform);
             Destroy(gameObject);
         }
+    }
+
+    public Vector2 GetProjectileVelocity(Vector2 velocity) 
+    {
+        return velocity;
     }
 }

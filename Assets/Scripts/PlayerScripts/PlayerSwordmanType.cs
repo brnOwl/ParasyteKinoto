@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 using static UnityEngine.UI.Image;
 
-public class PlayerSwordman : PlayerType
+public class PlayerSwordmanType : PlayerType
 {
     // Sword Dash
     [Header("Player Dash")]
@@ -18,6 +18,8 @@ public class PlayerSwordman : PlayerType
     public bool isDashing = false;
     public bool canDash;
 
+    public float meleeXOffset = 1.5f;
+
     // Get Scripts in children
     private MeleeController meleeController;
 
@@ -27,49 +29,32 @@ public class PlayerSwordman : PlayerType
         base.Awake();
         meleeController = GetComponentInChildren<MeleeController>();
         isDashTimerDone = true;
+        meleeController.SetMelee(false);
     }
 
     // Update is called once per frame
     private new void Update()
     {
-        ManageWallRays(transform.position, facingRight, wallClimbRadius);
+        ManageWallRays(transform.position, wallClimbRadius);
 
         ManageAnimationState();
         if (isDashTimerDone && !isWallClimb) canDash = true;
         else canDash = false;
         moveDirection = playerMovement.ReadValue<Vector2>();
+        // Set position of melee Hitbox
+        meleeController.transform.position = new Vector3(transform.position.x + meleeXOffset * facingRight, transform.position.y, transform.position.z);
     }
 
     private new void FixedUpdate()
     {
-        if (isWallClimb)
-        {
-            return;
-        }
-        // Dash Stats and Stuff
-        //Debug.Log("Leak");
-        if (isDashing || isWallJump) return;
+        FollowMouse();
+        if (isWallClimb || isDashing || isWallJump) return;
+
         MovePlayer();
-        transform.localScale = new Vector3(facingRight, transform.localScale.y, transform.localScale.z);
     }
 
-    protected new void OnEnable()
-    {
-        base.OnEnable();
-        
-        playerAttack = playerControls.Player.Fire;
-        playerAttack.Enable();
-        playerAttack.performed += ActivateSwordDash;
-    }
 
-    protected new void OnDisable()
-    {
-        base.OnDisable();
-
-        playerAttack.Disable();
-    }
-
-    private void ActivateSwordDash(InputAction.CallbackContext context)
+    protected override void ActivateAttack(InputAction.CallbackContext context)
     {
         //Debug.Log("ATTACK");
         if (canDash) StartCoroutine(SwordDash());
@@ -85,19 +70,20 @@ public class PlayerSwordman : PlayerType
     {
         isDashing = true;
         isDashTimerDone = false;
-        meleeController.SwitchMelee();
+        meleeController.SetMelee(true);
         float originalGravity = rb.gravityScale;
         rb.velocity = new Vector2(facingRight * dashingPower, 0);
         currentHorizontalVelocity = facingRight * dashingPower;
         yield return new WaitForSeconds(dashingTime);
         rb.gravityScale = originalGravity;
         isDashing = false;
-        meleeController.SwitchMelee();
+        meleeController.SetMelee(false);
         yield return new WaitForSeconds(dashingCooldown);
         isDashTimerDone = true;
     }
 
     // Set the health of the player -- so other functions can manipulate player health
+    
     protected new void MovePlayer()
     {
         if (isDashing)
@@ -108,15 +94,13 @@ public class PlayerSwordman : PlayerType
         // CanJump ==== the player is grounded
         // if (canJump) rb.velocity = new Vector2(rb.velocity.x, 0);
         // if wall jump, make current horizontal velocity instant for first frame
-        FollowMouse();
         currentHorizontalVelocity = Mathf.Lerp(currentHorizontalVelocity, moveDirection.x * moveSpeed, decay);
         if (currentHorizontalVelocity < 0.001 && currentHorizontalVelocity > -0.001) currentHorizontalVelocity = 0;
         rb.velocity = new Vector2(currentHorizontalVelocity, rb.velocity.y);
         SetDashRayCast();
         // Change direction based on input
-        if (currentHorizontalVelocity > 0) facingRight = 1;
-        else if (currentHorizontalVelocity < 0) facingRight = -1;
+        ChangeSpriteDirection();
     }
-
+    
     // Raycast 
 }

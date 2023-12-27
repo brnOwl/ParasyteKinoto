@@ -9,17 +9,12 @@ using static UnityEngine.UI.Image;
 
 public class PlayerType : MonoBehaviour
 {
-    enum PlayerTypeEnum
-    {
-        Archer,
-        Swordman,
-        Chemist
-    }
+    protected SpriteRenderer playerSprite;
 
     [Header("Player Settings")]
-    public float moveSpeed = 5f;
+    public float moveSpeed = 10f;
     public float setJumpForce = 50f;
-    public float decay = 0.1f;
+    public float decay = 0.2f;
 
     [Header("Player Stats")]
     public Vector2 moveDirection = Vector2.right;
@@ -29,6 +24,9 @@ public class PlayerType : MonoBehaviour
     public float currentHorizontalVelocity;
     public float currentVerticalVelocity;
     protected int facingRight = 1;
+    [Header("Player Invincibility")]
+    protected bool isInvincible;
+    protected float incivibilityTime = 1f;
 
     [Header("Player Health")]
     public int maxPlayerHealth = 100;
@@ -44,6 +42,9 @@ public class PlayerType : MonoBehaviour
     public float wallClimbSpeed = 100f;
     public float wallClimbRadius = 1;
 
+    [Header("Player Rotation Stats")]
+    public float rotationAngle;
+
     [Header("Player Animations")]
     [SerializeField] protected Animator playerAnimator;
 
@@ -54,6 +55,8 @@ public class PlayerType : MonoBehaviour
     protected InputAction playerMovement;
     protected InputAction playerAttack;
     protected InputAction playerJump;
+    protected InputAction playerEject;
+    protected InputAction playerPause;
 
     // States distinguishing player actions
     // isAlive = true
@@ -67,6 +70,7 @@ public class PlayerType : MonoBehaviour
     [Header("Player Death/Spore Spawning")]
     public GameObject playerSpore;
     public GameObject playerCorpse;
+    [SerializeField] private Vector2 killingProjectileVelocity;
     
 
     // Start is called before the first frame update
@@ -77,6 +81,8 @@ public class PlayerType : MonoBehaviour
         canJump = false;
         isAlive = true;
         isWallHugging = false;
+        isInvincible = false;
+        killingProjectileVelocity = Vector2.zero;
         
         // Player gets full health at start of the scene
         SetPlayerHealth(maxPlayerHealth);
@@ -84,12 +90,14 @@ public class PlayerType : MonoBehaviour
         // Player set animator
         playerAnimator = GetComponentInChildren<Animator>();
         audioSource = GetComponent<AudioSource>();
+
+        playerSprite = GetComponentInChildren<SpriteRenderer>();
     }
 
     // Update is called once per frame
     protected void Update()
     {
-        ManageWallRays(transform.position, facingRight, wallClimbRadius);
+        ManageWallRays(transform.position, wallClimbRadius);
 
         ManageAnimationState();
         // if (isDashTimerDone && !isWallClimb) canDash = true;
@@ -99,18 +107,22 @@ public class PlayerType : MonoBehaviour
 
     protected void FixedUpdate()
     {
-        if (isWallClimb)
-        {
-            return;
-        }
-        // Dash Stats and Stuff
-        //Debug.Log("Leak");
-        if (isWallJump) return;
+        FollowMouse();
+        if (isWallClimb || isWallJump) return;
+
         MovePlayer();
-        transform.localScale = new Vector3(facingRight, transform.localScale.y, transform.localScale.z);
     }
 
     protected void OnEnable()
+    {
+        OnGameControlEnable();
+
+        playerPause = playerControls.Player.Pause;
+        playerPause.Enable();
+        playerPause.performed += PauseGame;
+    }
+
+    public void OnGameControlEnable()
     {
         playerMovement = playerControls.Player.Move;
         playerMovement.Enable();
@@ -119,27 +131,58 @@ public class PlayerType : MonoBehaviour
         playerJump.Enable();
         playerJump.performed += ActivateJump;
         playerJump.performed += ManageWallJump;
+        playerJump.canceled += cancelWallJump;
+
+        playerAttack = playerControls.Player.Fire;
+        playerAttack.Enable();
+        playerAttack.performed += ActivateAttack;
+
+        playerEject = playerControls.Player.Eject;
+        playerEject.Enable();
+        playerEject.performed += EjectSpore;
     }
 
     protected void OnDisable()
     {
+        OnGameControlDisable();
+        playerPause.Disable();
+    }
+
+    public void OnGameControlDisable()
+    {
         playerMovement.Disable();
-        playerAttack.Disable();
         playerJump.Disable();
+        playerAttack.Disable();
+        playerEject.Disable();
+    }
+
+    protected virtual void ActivateAttack(InputAction.CallbackContext context)
+    {
+    }
+
+    protected virtual void EjectSpore(InputAction.CallbackContext context)
+    {
+        ActivateDeath();
     }
 
     protected void MovePlayer()
     {
-        // CanJump ==== the player is grounded
-        // if (canJump) rb.velocity = new Vector2(rb.velocity.x, 0);
-        // if wall jump, make current horizontal velocity instant for first frame
-        FollowMouse();
         currentHorizontalVelocity = Mathf.Lerp(currentHorizontalVelocity, moveDirection.x * moveSpeed, decay);
         if (currentHorizontalVelocity < 0.001 && currentHorizontalVelocity > -0.001) currentHorizontalVelocity = 0;
         rb.velocity = new Vector2(currentHorizontalVelocity, rb.velocity.y);
+
         // Change direction based on input
+        ChangeSpriteDirection();
+        // Oldish?? method to flip sprite
+        //if (currentHorizontalVelocity > 0) playerSprite.flipX = false;
+        //else if (currentHorizontalVelocity < 0) playerSprite.flipX = true;
+    }
+
+    protected void ChangeSpriteDirection()
+    {
         if (currentHorizontalVelocity > 0) facingRight = 1;
         else if (currentHorizontalVelocity < 0) facingRight = -1;
+        playerSprite.gameObject.transform.localScale = new Vector3(-facingRight, 1, 1);
     }
 
     protected void FollowMouse()
@@ -160,17 +203,34 @@ public class PlayerType : MonoBehaviour
         currentPlayerHealth -= decPlayerHealth;
     }
 
-
     protected void CheckPlayerDeath()
     {
         if (currentPlayerHealth <= 0 && isAlive)
         {
-            isAlive = false;
-            CreateSpore();
-            CreateCorpse();
-
-            Destroy(gameObject);
+            ActivateDeath();
         }
+        else if (isAlive)
+        {
+            StartCoroutine(StartInvincibleFrames(incivibilityTime));
+        }
+    }
+
+    private void ActivateDeath()
+    {
+        isAlive = false;
+        CreateSpore();
+        CreateCorpse();
+
+        Destroy(gameObject);
+    }
+
+    private IEnumerator StartInvincibleFrames(float iTime)
+    {
+        isInvincible = true;
+        playerSprite.color = Color.red;
+        yield return new WaitForSeconds(iTime);
+        playerSprite.color = Color.white;
+        isInvincible = false;
     }
 
     protected void ActivateJump(InputAction.CallbackContext context)
@@ -178,7 +238,7 @@ public class PlayerType : MonoBehaviour
         if (canJump)
         {
             rb.AddForce(Vector2.up * setJumpForce, ForceMode2D.Impulse);
-            RandomJumpSound();
+            //RandomJumpSound();
         }
     }
 
@@ -186,6 +246,11 @@ public class PlayerType : MonoBehaviour
     {
         GameObject newSpore = Instantiate(playerSpore);
         newSpore.transform.position = transform.position;
+
+        // Handle velocity of new spore (ejection speed)
+        Rigidbody2D sporerb = newSpore.GetComponent<Rigidbody2D>();
+
+        sporerb.velocity = (killingProjectileVelocity == Vector2.zero) ? new Vector2(0, 10) : killingProjectileVelocity;
     }
 
     protected void CreateCorpse()
@@ -208,8 +273,14 @@ public class PlayerType : MonoBehaviour
 
         if (collider.gameObject.tag == "EnemyProjectile")
         {
-            DecrementPlayerHealth((int)collider.GetComponent<EnemyProjectile>().GetProjectileDamage()); // FIX ME -- make this a variable/constant at the top
-            CheckPlayerDeath();
+            Destroy(collider);
+            if (!isInvincible)
+            {
+                DecrementPlayerHealth((int)collider.GetComponent<Projectile>().GetProjectileDamage()); // FIX ME -- make this a variable/constant at the top
+                killingProjectileVelocity = collider.GetComponent<Rigidbody2D>().velocity;
+                CheckPlayerDeath();
+            }
+            
         }
     }
 
@@ -231,8 +302,14 @@ public class PlayerType : MonoBehaviour
         }
     }
 
-    protected void ManageWallRays(Vector2 origin, int facingRight, float radius)
+    protected void cancelWallJump(InputAction.CallbackContext context)
     {
+        
+    }
+
+    protected void ManageWallRays(Vector2 origin,  float radius)
+    {
+        //facingRight = (playerSprite.flipX) ? -1 : 1;
         Vector2 angleDirection = new Vector2(facingRight, 0);
 
 
@@ -252,7 +329,7 @@ public class PlayerType : MonoBehaviour
         Debug.DrawRay(botRayOrigin, Vector2.down * radius, Color.green);
         Debug.DrawRay(topRayOrigin, Vector2.up * radius, Color.green);
 
-        Debug.Log("Player Collision: " + botHit.collider);
+        //Debug.Log("Player Collision: " + botHit.collider);
 
         canWallClimb = (topHit.collider != null && botHit.collider != null) ? true : false;
 
@@ -293,12 +370,29 @@ public class PlayerType : MonoBehaviour
         canWallJump = status;
     }
 
-
-
     // Handle Sounds
     protected void RandomJumpSound()
     {
         audioSource.clip = jumpAudioClips[Random.Range(0, jumpAudioClips.Length)];
         audioSource.Play();
     }
+
+    protected void PauseGame(InputAction.CallbackContext context)
+    {
+        MenuManager menu = MenuManager.Instance;
+
+        // Pause game - if not already paused, disable controls -> enable controls otherwise
+
+        if (menu.isPaused)
+        {
+            menu.ResumeGame();
+            OnGameControlEnable();
+        }
+        else
+        {
+            menu.PauseGame();
+            OnGameControlDisable();
+        }
+    }
+
 }

@@ -5,12 +5,16 @@ using UnityEngine;
 public class MeleeController : MonoBehaviour
 {
     public float meleeDamage = 100f;
-    bool isMelee;
+    protected bool isMelee;
     // Start is called before the first frame update
     void Start()
     {
         isMelee = false;
-        gameObject.SetActive(isMelee);
+    }
+
+    public void SetMelee(bool setOption)
+    {
+        gameObject.SetActive(setOption);
     }
 
     public void SwitchMelee()

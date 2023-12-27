@@ -4,13 +4,31 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+
+namespace ClassTyping
+{
+    public enum ClassType
+    {
+        Archer,
+        Swordman,
+        Chemist
+    }
+
+    public enum EntityOwner
+    {
+        Player,
+        Enemy
+    }
+}
+
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
     public GameObject player;
     public Transform playerSpawnPoint;
-    //private 
+    [SerializeField] GameObject currentPlayer;
 
     //public HealthBar playerHealthBar;
     //public StaminaBar playerStaminaBar;
@@ -27,31 +45,40 @@ public class GameManager : MonoBehaviour
     public int setEnemyCount;
 
     [Header("Enemy Prefab and Spawnpoint")]
-    public GameObject enemy;
-    public Transform enemySpawnPoint;
+    public List<GameObject> enemyTypeList;
+    public List<GameObject> playerTypeList;
+    //public List<GameObject> ;
+    public List<Transform> spawnPointList;
+    //public List<Transform> ;
+    
 
     [Header("Inventory")]
     public GameObject inventory;
     public GameObject hotbar;
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        Instance = this;
-        SpawnPlayer(playerSpawnPoint);
-        SpawnEnemy(enemySpawnPoint);
-    }
-
     private void Awake()
     {
+        // Prevent multiple gameManagers from existing (keep existing game data)
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        // Data persistance
+        Instance = this;
+        DontDestroyOnLoad(this);
+
+        SpawnPlayer(playerSpawnPoint);
+        SpawnEnemyList();
         gameOverScreen.SetActive(false);
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        currentPlayer = GameObject.FindGameObjectWithTag("Player");
     }
 
     public void SpawnPlayer(Transform spawnPoint)
@@ -60,10 +87,21 @@ public class GameManager : MonoBehaviour
         newPlayer.transform.position = spawnPoint.position;
     }
 
-    public void SpawnEnemy(Transform spawnPoint)
+    public void SpawnEnemy(Transform spawnPoint, GameObject enemy)
     {
         GameObject newEnemy = Instantiate(enemy);
         newEnemy.transform.position = spawnPoint.position;
+    }
+
+    public void SpawnEnemyList()
+    {
+        foreach (Transform point in spawnPointList)
+        {
+            int index = Random.Range(0, enemyTypeList.Count);
+            GameObject newEnemy = Instantiate(enemyTypeList[index]);
+            newEnemy.transform.position = point.position;
+        }
+        
     }
 
     // Loads a scene based on the scene Index -- can be called by other scripts
@@ -104,5 +142,10 @@ public class GameManager : MonoBehaviour
             //enemyController.EnemyTakeDamage(damage); FIXME
         }
 
+    }
+
+    public GameObject GetCurrentPlayer()
+    {
+        return currentPlayer;
     }
 }

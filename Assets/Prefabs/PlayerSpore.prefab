@@ -87,7 +87,7 @@ MonoBehaviour:
   moveDirection: {x: 1, y: 0}
   moveSpeed: 5
   decay: 0.1
-  player: {fileID: 540342555001191343, guid: c148975579aa0a04a88eeb2c53018f84, type: 3}
+  playerList: {fileID: 4959279764789257732, guid: 56235df636277e44fa0be3d3064079fd, type: 3}
 --- !u!1 &8412996377679632427
 GameObject:
   m_ObjectHideFlags: 0

@@ -31,4 +31,26 @@ public class FeetController : MonoBehaviour
             playerController.canJump = false;
         }
     }
+
+    // Trigger
+
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        Debug.Log(collider.gameObject.tag);
+
+        if (collider.gameObject.tag == "Ground")
+        {
+            playerController.canJump = true;
+            playerController.SetCanWallJump(true);
+            playerController.rb.velocity = new Vector2(playerController.rb.velocity.x, 0);
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collider)
+    {
+        if (collider.gameObject.tag == "Ground")
+        {
+            playerController.canJump = false;
+        }
+    }
 }

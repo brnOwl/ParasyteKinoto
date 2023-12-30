@@ -22,7 +22,8 @@ public class BackgroundScroller : MonoBehaviour
 
         if (target != null)
         {
-            playerTransform = new Vector2(target.transform.position.x * movementFactorX, target.transform.position.y * movementFactorY);
+            // playerTransform = new Vector2(target.transform.position.x * movementFactorX, target.transform.position.y * movementFactorY);
+            playerTransform = new Vector2(target.transform.position.x * movementFactorX, 0);
             rawImage.uvRect = new Rect(playerTransform, rawImage.uvRect.size);
         }
     }

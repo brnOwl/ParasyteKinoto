@@ -28,15 +28,15 @@ public class MenuManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(this);
 
+        MenuManager.Instance.FindPauseMenu();
+    }
+
+    public void FindPauseMenu()
+    {
         // Find pause menu
         pauseMenu = GameObject.Find("UIManager/PauseMenu");
         pauseMenu.SetActive(false);
         isPaused = false;
-    }
-
-    private void OnDisable()
-    {
-        
     }
 
     // Update is called once per frame

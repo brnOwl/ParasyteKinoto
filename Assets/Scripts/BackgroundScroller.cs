@@ -13,7 +13,6 @@ public class BackgroundScroller : MonoBehaviour
     void Update()
     {
         GetPlayerPosition();
-        
     }
 
     void  GetPlayerPosition()

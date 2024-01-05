@@ -56,6 +56,9 @@ public class GameManager : MonoBehaviour
     public GameObject inventory;
     public GameObject hotbar;
 
+    [Header("Enemy List in Scene")]
+    [SerializeField] GameObject enemyListInScene;
+
     private void Awake()
     {
         // Prevent multiple gameManagers from existing (keep existing game data)
@@ -70,8 +73,13 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this);
 
         SpawnPlayer(playerSpawnPoint);
+
+        SpawnEnemyListInScene();
         SpawnEnemyList();
+
         gameOverScreen.SetActive(false);
+
+        
 
     }
 
@@ -98,7 +106,7 @@ public class GameManager : MonoBehaviour
         foreach (Transform point in spawnPointList)
         {
             int index = Random.Range(0, enemyTypeList.Count);
-            GameObject newEnemy = Instantiate(enemyTypeList[index]);
+            GameObject newEnemy = Instantiate(enemyTypeList[index], enemyListInScene.transform);
             newEnemy.transform.position = point.position;
         }
         
@@ -148,4 +156,10 @@ public class GameManager : MonoBehaviour
     {
         return currentPlayer;
     }
+
+    public void SpawnEnemyListInScene()
+    {
+        enemyListInScene = Instantiate(enemyListInScene);
+    }
+
 }

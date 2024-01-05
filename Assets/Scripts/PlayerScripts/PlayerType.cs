@@ -29,7 +29,7 @@ public class PlayerType : MonoBehaviour
     protected float incivibilityTime = 1f;
 
     [Header("Player Health")]
-    public int maxPlayerHealth = 100;
+    protected int maxPlayerHealth = 100;
     [SerializeField] protected int currentPlayerHealth;
 
     [Header("Player Wall Climbing")]
@@ -83,9 +83,13 @@ public class PlayerType : MonoBehaviour
         isWallHugging = false;
         isInvincible = false;
         killingProjectileVelocity = Vector2.zero;
-        
+
         // Player gets full health at start of the scene
+        maxPlayerHealth = (int)GameStatistics.Instance.playerHealth;
         SetPlayerHealth(maxPlayerHealth);
+
+        // Player Speed
+        moveSpeed = GameStatistics.Instance.playerMovementSpeed;
         
         // Player set animator
         playerAnimator = GetComponentInChildren<Animator>();

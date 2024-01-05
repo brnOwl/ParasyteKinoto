@@ -7,13 +7,13 @@ public class PotionSplash : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartSplash();
+        StartCoroutine(StartSplash());
     }
 
     IEnumerator StartSplash()
     {
         GetComponent<ParticleSystem>().Play();
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1f);
         Destroy(gameObject);
     }
 }

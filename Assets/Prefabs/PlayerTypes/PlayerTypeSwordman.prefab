@@ -334,7 +334,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 20
+  m_Mass: 15
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 5
@@ -364,7 +364,6 @@ MonoBehaviour:
   playerAngle: 0
   currentHorizontalVelocity: 0
   currentVerticalVelocity: 0
-  maxPlayerHealth: 100
   currentPlayerHealth: 0
   isWallHugging: 0
   canWallClimb: 0
@@ -375,7 +374,6 @@ MonoBehaviour:
   wallClimbSpeed: 5
   wallClimbRadius: 0.5
   rotationAngle: 0
-  FirePoint: {fileID: 0}
   playerAnimator: {fileID: 0}
   isAlive: 1
   audioSource: {fileID: 0}
@@ -386,6 +384,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: bfa64687a35ff944a9cf55e5c6d45b0b, type: 3}
   playerSpore: {fileID: 6174624115276011585, guid: 06e31e726a202bf479fa76bdd75ef680, type: 3}
   playerCorpse: {fileID: 1259229403584877112, guid: 359f3a825ea14f848b24260b406452c9, type: 3}
+  killingProjectileVelocity: {x: 0, y: 0}
   isDashTimerDone: 0
   dashingPower: 50
   dashingTime: 0.1
@@ -432,8 +431,8 @@ TrailRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -663658135
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Time: 0.5
   m_Parameters:
@@ -864,7 +863,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -663658135
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -1863061533, guid: a5dd239f46f0e6d48b5c67c2f4ccdba1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -968,7 +967,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 520547559
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4457ea036d5862d4baee5b39bea6eb17, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

@@ -72,6 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7635850754353303009}
   - component: {fileID: 7635850754353303008}
+  - component: {fileID: 6216531162642536234}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -110,6 +111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 540342555001191343, guid: c148975579aa0a04a88eeb2c53018f84, type: 3}
   playerSpawnPoint: {fileID: 0}
+  currentPlayer: {fileID: 0}
   explosionObject: {fileID: 0}
   gameOverTime: 3
   gameOverScreen: {fileID: 0}
@@ -126,3 +128,21 @@ MonoBehaviour:
   spawnPointList: []
   inventory: {fileID: 0}
   hotbar: {fileID: 0}
+  enemyListInScene: {fileID: 2406624500745047194, guid: 33e0b346ddc56e6459b965fb771485b5, type: 3}
+--- !u!114 &6216531162642536234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7635850754353303015}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88757d977bdaafc48a61db2dc8f967ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHealth: 100
+  playerMovementSpeed: 12
+  playerWallClimbSpeed: 0
+  playerDashSpeed: 0
+  globalEnemyHealth: 0

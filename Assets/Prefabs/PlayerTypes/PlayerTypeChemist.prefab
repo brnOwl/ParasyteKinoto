@@ -123,7 +123,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 20
+  m_Mass: 15
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 5
@@ -171,8 +171,8 @@ TrailRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -663658135
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Time: 0.5
   m_Parameters:
@@ -399,7 +399,6 @@ MonoBehaviour:
   playerAngle: 0
   currentHorizontalVelocity: 0
   currentVerticalVelocity: 0
-  maxPlayerHealth: 100
   currentPlayerHealth: 0
   isWallHugging: 0
   canWallClimb: 0
@@ -416,7 +415,7 @@ MonoBehaviour:
   jumpAudioClips: []
   playerSpore: {fileID: 6174624115276011585, guid: 06e31e726a202bf479fa76bdd75ef680, type: 3}
   playerCorpse: {fileID: 1259229403584877112, guid: 359f3a825ea14f848b24260b406452c9, type: 3}
-  projectileVelocity: {x: 0, y: 0}
+  killingProjectileVelocity: {x: 0, y: 0}
   playerProjectile: {fileID: 441689402547125068, guid: 4c6f892c58ed6b541bd16bca97cef52c, type: 3}
   projectileVelocity: 10
   bulletDespawnTime: 5
@@ -578,7 +577,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -663658135
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -1863061533, guid: a5dd239f46f0e6d48b5c67c2f4ccdba1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

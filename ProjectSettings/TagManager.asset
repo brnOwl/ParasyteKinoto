@@ -54,8 +54,20 @@ TagManager:
   - name: Background01
     uniqueID: 3264876525
     locked: 0
+  - name: TreeBackground
+    uniqueID: 3127826057
+    locked: 0
+  - name: GrassBackground
+    uniqueID: 86703693
+    locked: 0
+  - name: Ground
+    uniqueID: 816695251
+    locked: 0
   - name: Player
     uniqueID: 3631309161
+    locked: 0
+  - name: Enemy
+    uniqueID: 3005642441
     locked: 0
   - name: Items
     uniqueID: 520547559

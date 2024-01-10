@@ -18,7 +18,7 @@ public class CameraFindPlayer : MonoBehaviour
     void Update()
     {
         target = GameObject.FindWithTag("Player");
-        if (target != null) virtualCamera.Follow = target.transform;
+        if (target != null) virtualCamera.Follow = target.transform.Find("CameraPoint");
     }
 
 
